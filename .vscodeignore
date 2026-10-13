@@ -1,0 +1,16 @@
+src/**
+.vscode-test/**
+.vscode/**
+test-fixtures/**
+**/*.map
+**/*.ts
+out/test/**
+eslint.config.mjs
+tsconfig.json
+.gitignore
+REPORT.md
+THIRD_PARTY_NOTICES.md
+package-lock.json
+*.vsix
+samples/**
+scripts/**

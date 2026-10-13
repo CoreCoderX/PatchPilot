@@ -1,0 +1,26 @@
+# Dependencies and build output
+node_modules/
+out/
+dist/
+
+# Test harness and packaged artifacts
+.vscode-test/
+*.vsix
+
+# Local environment and secrets - this repository must never carry one.
+# (.env*, *.pem, *.key, *.p12, *.pfx, *.jks, *.keystore, id_rsa*, id_ed25519*)
+.env
+.env.*
+**/.env
+**/.env.*
+
+# Logs and editor/OS noise
+*.log
+Thumbs.db
+.DS_Store
+
+# Reference material kept locally but not part of this project.
+# Listed explicitly rather than with a blanket "*.md" rule: REPORT.md,
+# THIRD_PARTY_NOTICES.md and samples/README.md are tracked and linked from README.md,
+# and a broad rule would silently hide any documentation added later.
+README_REFERENCE.md

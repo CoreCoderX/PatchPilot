@@ -1,0 +1,12 @@
+{
+  "name": "sample-npm-vuln",
+  "version": "1.0.0",
+  "private": true,
+  "dependencies": {
+    "lodash": "4.17.15",
+    "express": "^4.18.0"
+  },
+  "scripts": {
+    "test": "node test.js"
+  }
+}

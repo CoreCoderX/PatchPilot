@@ -1,0 +1,282 @@
+{
+  "name": "patchpilot",
+  "displayName": "PatchPilot",
+  "description": "Dependency intelligence and controlled repair workflow for VS Code (in development).",
+  "version": "0.4.0",
+  "publisher": "patchpilot-dev",
+  "private": true,
+  "license": "UNLICENSED",
+  "engines": {
+    "vscode": "^1.105.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "main": "./out/extension.js",
+  "activationEvents": [],
+  "capabilities": {
+    "untrustedWorkspaces": {
+      "supported": "limited",
+      "description": "PatchPilot reads trust state and shows status and key/settings management in restricted mode. Dependency analysis reads project manifests, so it requires a trusted workspace; it also asks before any network lookup. Actions that send workspace content to a model, or run project code, require a trusted workspace. Model endpoint settings are user-level only, so a project cannot redirect your API key."
+    }
+  },
+  "contributes": {
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "patchpilot",
+          "title": "PatchPilot",
+          "icon": "media/patchpilot.svg"
+        }
+      ]
+    },
+    "views": {
+      "patchpilot": [
+        {
+          "id": "patchpilot.workflow",
+          "name": "Workflow",
+          "contextualTitle": "PatchPilot Workflow"
+        },
+        {
+          "id": "patchpilot.overview",
+          "name": "Overview",
+          "contextualTitle": "PatchPilot Overview"
+        },
+        {
+          "id": "patchpilot.dependencies",
+          "name": "Dependencies",
+          "contextualTitle": "PatchPilot Dependencies"
+        },
+        {
+          "id": "patchpilot.plan",
+          "name": "Plan",
+          "contextualTitle": "PatchPilot Plan"
+        }
+      ],
+      "patchpilot.dependencies": [
+        {
+          "view": "patchpilot.dependencies",
+          "contents": "No analysis yet.\n[Analyze Dependencies](command:patchpilot.analyzeDependencies)\nReads manifests, then asks before any network lookup. Read-only."
+        }
+      ],
+      "patchpilot.plan": [
+        {
+          "view": "patchpilot.plan",
+          "contents": "No plan yet.\n[Plan Upgrade](command:patchpilot.planUpgrade)\nBuilds a plan from the last analysis. Changes nothing."
+        }
+      ]
+    },
+    "commands": [
+      {
+        "command": "patchpilot.showStatus",
+        "title": "PatchPilot: Show Workspace Status",
+        "category": "PatchPilot",
+        "icon": "$(output)"
+      },
+      {
+        "command": "patchpilot.setApiKey",
+        "title": "PatchPilot: Set Model API Key",
+        "category": "PatchPilot",
+        "icon": "$(add)"
+      },
+      {
+        "command": "patchpilot.clearApiKey",
+        "title": "PatchPilot: Clear Model API Key",
+        "category": "PatchPilot",
+        "icon": "$(trash)"
+      },
+      {
+        "command": "patchpilot.testConnection",
+        "title": "PatchPilot: Test Model Connection",
+        "category": "PatchPilot",
+        "icon": "$(plug)"
+      },
+      {
+        "command": "patchpilot.openModelSettings",
+        "title": "PatchPilot: Open Model Settings",
+        "category": "PatchPilot",
+        "icon": "$(gear)"
+      },
+      {
+        "command": "patchpilot.analyzeDependencies",
+        "title": "PatchPilot: Analyze Dependencies",
+        "category": "PatchPilot",
+        "icon": "$(search)"
+      },
+      {
+        "command": "patchpilot.planUpgrade",
+        "title": "PatchPilot: Plan Upgrade",
+        "category": "PatchPilot",
+        "icon": "$(list-tree)"
+      },
+      {
+        "command": "patchpilot.reviewAndApply",
+        "title": "PatchPilot: Review and Apply Plan",
+        "category": "PatchPilot",
+        "icon": "$(check-all)"
+      },
+      {
+        "command": "patchpilot.validateChanges",
+        "title": "PatchPilot: Validate Changes",
+        "category": "PatchPilot",
+        "icon": "$(beaker)"
+      },
+      {
+        "command": "patchpilot.repairWithModel",
+        "title": "PatchPilot: Repair with Model",
+        "category": "PatchPilot",
+        "icon": "$(wrench)"
+      },
+      {
+        "command": "patchpilot.rollbackChanges",
+        "title": "PatchPilot: Roll Back Changes",
+        "category": "PatchPilot",
+        "icon": "$(history)"
+      }
+    ],
+    "menus": {
+      "view/title": [
+        {
+          "command": "patchpilot.analyzeDependencies",
+          "when": "view == patchpilot.dependencies",
+          "group": "navigation@1"
+        },
+        {
+          "command": "patchpilot.planUpgrade",
+          "when": "view == patchpilot.plan",
+          "group": "navigation@1"
+        },
+        {
+          "command": "patchpilot.reviewAndApply",
+          "when": "view == patchpilot.plan",
+          "group": "navigation@2"
+        },
+        {
+          "command": "patchpilot.validateChanges",
+          "when": "view == patchpilot.plan",
+          "group": "navigation@3"
+        },
+        {
+          "command": "patchpilot.repairWithModel",
+          "when": "view == patchpilot.plan",
+          "group": "navigation@4"
+        },
+        {
+          "command": "patchpilot.rollbackChanges",
+          "when": "view == patchpilot.plan",
+          "group": "navigation@5"
+        },
+        {
+          "command": "patchpilot.setApiKey",
+          "when": "view == patchpilot.overview",
+          "group": "navigation@1"
+        },
+        {
+          "command": "patchpilot.testConnection",
+          "when": "view == patchpilot.overview",
+          "group": "navigation@2"
+        },
+        {
+          "command": "patchpilot.showStatus",
+          "when": "view == patchpilot.overview",
+          "group": "navigation@3"
+        }
+      ],
+      "view/item/context": [
+        {
+          "command": "patchpilot.reviewAndApply",
+          "when": "view == patchpilot.plan && viewItem =~ /^patchpilot\\.plan\\./",
+          "group": "patchpilot@1"
+        },
+        {
+          "command": "patchpilot.validateChanges",
+          "when": "view == patchpilot.plan && viewItem =~ /^patchpilot\\.plan\\./",
+          "group": "patchpilot@2"
+        },
+        {
+          "command": "patchpilot.rollbackChanges",
+          "when": "view == patchpilot.plan && viewItem =~ /^patchpilot\\.plan\\./",
+          "group": "patchpilot@3"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "PatchPilot",
+      "properties": {
+        "patchpilot.ai.baseUrl": {
+          "type": "string",
+          "default": "https://api.openai.com/v1",
+          "scope": "application",
+          "markdownDescription": "Base URL of an OpenAI-compatible Chat Completions API. Must use `https`, or `http` only for `localhost`, `127.0.0.1`, or `[::1]`. Only user-level settings are read, so a project cannot redirect your API key."
+        },
+        "patchpilot.ai.model": {
+          "type": "string",
+          "default": "",
+          "scope": "application",
+          "markdownDescription": "Model ID sent to the endpoint, for example the ID your provider lists for chat models. Required before any model action."
+        },
+        "patchpilot.ai.timeoutSeconds": {
+          "type": "integer",
+          "default": 60,
+          "minimum": 5,
+          "maximum": 300,
+          "scope": "application",
+          "description": "Total time limit for one model request, including streaming."
+        },
+        "patchpilot.context.excludePatterns": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "default": [],
+          "scope": "window",
+          "markdownDescription": "Additional glob patterns that must never be sent to a model. The built-in secret-file patterns (for example `.env*`, `*.pem`, `*.key`) always apply and cannot be removed here."
+        },
+        "patchpilot.upgrade.commandTimeoutSeconds": {
+          "type": "integer",
+          "default": 300,
+          "minimum": 10,
+          "maximum": 3600,
+          "scope": "window",
+          "description": "Time limit for each validation or lockfile command. A command that exceeds it is stopped and reported as timed out."
+        },
+        "patchpilot.upgrade.repairMaxIterations": {
+          "type": "integer",
+          "default": 2,
+          "minimum": 1,
+          "maximum": 5,
+          "scope": "window",
+          "description": "Maximum model repair attempts per validation failure. Each attempt asks for consent before anything is sent."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "clean": "node -e \"require('fs').rmSync('out',{recursive:true,force:true})\"",
+    "compile": "tsc -p ./",
+    "typecheck": "tsc -p ./ --noEmit",
+    "lint": "eslint src --max-warnings=0",
+    "test:unit": "mocha \"out/test/unit/**/*.test.js\"",
+    "test:extension": "node ./out/test/runTest.js",
+    "test": "npm run compile && npm run test:unit && npm run test:extension",
+    "package": "npm run compile && vsce package --out patchpilot.vsix",
+    "e2e": "npm run compile && node scripts/e2e-samples.js"
+  },
+  "devDependencies": {
+    "@types/mocha": "^10.0.10",
+    "@types/node": "^20.19.0",
+    "@types/semver": "^7.8.0",
+    "@types/vscode": "^1.105.0",
+    "@vscode/test-electron": "^2.5.2",
+    "@vscode/vsce": "^4.0.0",
+    "eslint": "^9.39.0",
+    "mocha": "^12.0.3",
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.46.0"
+  },
+  "dependencies": {
+    "fast-xml-parser": "^5.11.2",
+    "semver": "^7.8.5",
+    "smol-toml": "^1.9.1"
+  }
+}
